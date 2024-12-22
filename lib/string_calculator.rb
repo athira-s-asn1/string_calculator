@@ -8,7 +8,7 @@ class StringCalculator
 
     raise_error_for_negatives(negatives) if negatives.any?
 
-    sum(nums)
+    filter_and_sum(nums)
   end
 
   private
@@ -33,7 +33,7 @@ class StringCalculator
     raise "negative numbers not allowed: #{negatives.join(', ')}"
   end
 
-  def sum(nums)
+  def filter_and_sum(nums)
     nums.reject { |n| n > 1000 }.sum
   end
 
