@@ -13,5 +13,17 @@ RSpec.describe StringCalculator do
     it 'returns 0 for a string with no valid numbers' do
       expect(calculator.add('abc')).to eq(0)
     end
+
+    it 'ignores numbers greater than 1000' do
+      expect(calculator.add('2,1001')).to eq(2)
+    end
+
+    it 'handles complex custom delimiters' do
+      expect(calculator.add("//[***]\n1***2***3")).to eq(6)
+    end
+
+    it 'returns 0 for a string with no numbers and custom delimiter' do
+      expect(calculator.add("//;\n;")).to eq(0)
+    end
   end
 end
