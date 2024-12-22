@@ -18,6 +18,15 @@ RSpec.describe StringCalculator do
       expect(calculator.add('')).to eq(0)
     end
 
+    it 'returns 0 for nil input' do
+      expect(calculator.add(nil)).to eq(0)
+    end
+
+    it 'returns 0 for whitespace input' do
+      expect(calculator.add(' ')).to eq(0)
+      expect(calculator.add("\n")).to eq(0)
+    end
+
     it 'ignores numbers greater than 1000' do
       expect(calculator.add('2,1001')).to eq(2)
     end
