@@ -2,37 +2,33 @@ class StringCalculator
   def add(numbers)
     return 0 if numbers.empty?
 
-    delimiter, numbers = extract_delimiter(numbers)
-    nums = parse_numbers(numbers, delimiter)
+    delimiter = /[\n,]/
+    
+    # Check for custom delimiter
+    if numbers.start_with?('//')
+      custom_delimiter, numbers = parse_custom_delimiter(numbers)
+      delimiter = Regexp.new(custom_delimiter)
+    end
 
-    handle_negatives(nums)
-    nums.sum
+    nums = numbers.split(delimiter).map(&:to_i)
+    negatives = nums.select(&:negative?)
+
+    raise "negative numbers not allowed: #{negatives.join(', ')}" if negatives.any?
+
+    # Ignore numbers greater than 1000
+    nums.reject { |n| n > 1000 }.sum
   end
 
   private
 
-  def extract_delimiter(numbers)
-    if numbers.start_with?('//')
-      custom_delimiter, rest = parse_custom_delimiter(numbers)
-      [Regexp.new(custom_delimiter), rest]
-    else
-      [/[\n,]/, numbers]
-    end
-  end
-
   def parse_custom_delimiter(input)
-    match = input.match(%r{//(.+)\n(.*)})
-    [Regexp.escape(match[1]), match[2]]
-  end
-
-  def parse_numbers(numbers, delimiter)
-    numbers.split(delimiter)
-           .map(&:to_i)
-           .reject { |n| n > 1000 } # Ignore numbers > 1000
-  end
-
-  def handle_negatives(nums)
-    negatives = nums.select(&:negative?)
-    raise "negative numbers not allowed: #{negatives.join(', ')}" if negatives.any?
+    # Check for delimiters inside square brackets (e.g., //[*]\n1*2)
+    if input.start_with?("//[")
+      match = input.match(%r{//\[(.+)\]\n(.*)})
+      [Regexp.escape(match[1]), match[2]]
+    else
+      match = input.match(%r{//(.)\n(.*)})
+      [Regexp.escape(match[1]), match[2]]
+    end
   end
 end
