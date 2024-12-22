@@ -2,7 +2,7 @@ class StringCalculator
   DEFAULT_DELIMITER = /[\n,]/
 
   def add(numbers)
-    return 0 if numbers.empty?
+    return 0 if numbers.nil? || numbers.strip.empty?
 
     delimiter, numbers = extract_delimiter_and_numbers(numbers)
     nums = parse_numbers(numbers, delimiter)
