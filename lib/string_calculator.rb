@@ -22,10 +22,11 @@ class StringCalculator
   private
 
   def parse_custom_delimiter(input)
-    # Check for delimiters inside square brackets (e.g., //[*]\n1*2)
+    # Check for multiple delimiters inside square brackets (e.g., //[*][%]\n1*2%3)
     if input.start_with?("//[")
-      match = input.match(%r{//\[(.+)\]\n(.*)})
-      [Regexp.escape(match[1]), match[2]]
+      match = input.match(%r{//\[(.+?)\]\n(.*)}) # Match multiple delimiters
+      delimiters = match[1].split('][').map { |delim| Regexp.escape(delim) }.join('|') # Create a regex for all delimiters
+      [delimiters, match[2]]
     else
       match = input.match(%r{//(.)\n(.*)})
       [Regexp.escape(match[1]), match[2]]
