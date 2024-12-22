@@ -48,6 +48,19 @@ RSpec.describe StringCalculator do
         .to raise_error('negative numbers not allowed: -2, -4')
     end
    
+    it 'returns the sum of numbers when separated by commas and newlines' do
+      expect(calculator.add("1,2,3")).to eq(6)
+      expect(calculator.add("1\n2,3")).to eq(6)
+    end
+
+    it 'raises an error for a single negative number' do
+      expect { calculator.add('1,-2,3') }
+        .to raise_error('negative numbers not allowed: -2')
+    end
+  
+    it 'returns 0 when the input contains numbers greater than 1000' do
+      expect(calculator.add('1000,1001')).to eq(1000)
+    end
     
   end
 end
