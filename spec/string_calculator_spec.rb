@@ -14,6 +14,10 @@ RSpec.describe StringCalculator do
       expect(calculator.add('abc')).to eq(0)
     end
 
+    it 'returns 0 for an empty string' do
+      expect(calculator.add('')).to eq(0)
+    end
+
     it 'ignores numbers greater than 1000' do
       expect(calculator.add('2,1001')).to eq(2)
     end
