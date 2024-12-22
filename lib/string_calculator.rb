@@ -1,47 +1,50 @@
 class StringCalculator
-  DEFAULT_DELIMITER = /[\n,]/
-
   def add(numbers)
     return 0 if numbers.nil? || numbers.strip.empty?
 
-    delimiter, numbers = extract_delimiter_and_numbers(numbers)
-    nums = parse_numbers(numbers, delimiter)
+    numbers = handle_custom_delimiter(numbers)
+    nums = convert_to_integers(numbers)
+    negatives = find_negatives(nums)
 
-    validate_negatives(nums)
-    filter_large_numbers(nums).sum
+    raise_error_for_negatives(negatives) if negatives.any?
+
+    sum(nums)
   end
 
   private
 
-  def extract_delimiter_and_numbers(numbers)
+  def handle_custom_delimiter(numbers)
     if numbers.start_with?('//')
-      parse_custom_delimiter(numbers)
-    else
-      [DEFAULT_DELIMITER, numbers]
+      custom_delimiter, numbers = parse_custom_delimiter(numbers)
+      numbers = numbers.split(Regexp.new(custom_delimiter)).join(',')
     end
+    numbers
   end
 
-  def parse_numbers(numbers, delimiter)
-    numbers.split(delimiter).map(&:to_i)
+  def convert_to_integers(numbers)
+    numbers.split(/[\n,]/).map(&:to_i)
   end
 
-  def validate_negatives(nums)
-    negatives = nums.select(&:negative?)
-    raise "negative numbers not allowed: #{negatives.join(', ')}" if negatives.any?
+  def find_negatives(nums)
+    nums.select(&:negative?)
   end
 
-  def filter_large_numbers(nums)
-    nums.reject { |n| n > 1000 }
+  def raise_error_for_negatives(negatives)
+    raise "negative numbers not allowed: #{negatives.join(', ')}"
+  end
+
+  def sum(nums)
+    nums.reject { |n| n > 1000 }.sum
   end
 
   def parse_custom_delimiter(input)
     if input.start_with?("//[")
       match = input.match(%r{//\[(.+?)\]\n(.*)})
       delimiters = match[1].split('][').map { |delim| Regexp.escape(delim) }.join('|')
-      [Regexp.new(delimiters), match[2]]
+      [delimiters, match[2]]
     else
       match = input.match(%r{//(.)\n(.*)})
-      [Regexp.new(Regexp.escape(match[1])), match[2]]
+      [Regexp.escape(match[1]), match[2]]
     end
   end
 end
