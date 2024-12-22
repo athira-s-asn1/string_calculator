@@ -25,5 +25,10 @@ RSpec.describe StringCalculator do
     it 'returns 0 for a string with no numbers and custom delimiter' do
       expect(calculator.add("//;\n;")).to eq(0)
     end
+
+    it 'handles multiple custom delimiters' do
+      expect(calculator.add("//[*][%]\n1*2%3")).to eq(6)
+    end
+    
   end
 end
