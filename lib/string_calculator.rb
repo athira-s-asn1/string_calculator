@@ -13,7 +13,8 @@ class StringCalculator
 
     raise "negative numbers not allowed: #{negatives.join(', ')}" if negatives.any?
 
-    nums.reject { |n| n > 1000 }.sum # Ignore numbers greater than 1000
+    # Ignore numbers greater than 1000
+    nums.reject { |num| num > 1000 }.sum
   end
 
   private
