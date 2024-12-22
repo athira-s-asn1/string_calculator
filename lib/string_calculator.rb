@@ -9,12 +9,12 @@ class StringCalculator
     end
 
     nums = numbers.split(delimiter).map(&:to_i)
+    nums.reject! { |n| n > 1000 } # Ignore numbers greater than 1000
     negatives = nums.select(&:negative?)
 
     raise "negative numbers not allowed: #{negatives.join(', ')}" if negatives.any?
 
-    # Ignore numbers greater than 1000
-    nums.reject { |num| num > 1000 }.sum
+    nums.sum
   end
 
   private
