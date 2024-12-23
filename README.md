@@ -30,20 +30,20 @@ The goal is to implement a `StringCalculator` class with the following functiona
    ```bash
    git clone https://github.com/athira-s-asn1/string_calculator.git
 2. Navigate to the project directory:
-   cd string_calculator
+   `cd string_calculator`
 3. Install the required gems:
-   bundle install
+   `bundle install`
 
 ## Usage
 
 To run the StringCalculator:
-    ruby string_calculator.rb
+    `ruby string_calculator.rb`
 
 
 ## Running Tests
 
 To execute the test suite:
-    rspec
+    `rspec`
 
 ## Example Input and Output
 
