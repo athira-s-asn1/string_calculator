@@ -37,26 +37,27 @@ The goal is to implement a `StringCalculator` class with the following functiona
 ## Usage
 
 To run the StringCalculator:
-  ```bash
-  ruby string_calculator.rb
+    ```bash
+    ruby string_calculator.rb
+
 
 ## Running Tests
 
 To execute the test suite:
-   ```bash
-   rspec
+    ```bash
+    rspec
 
 ## Example Input and Output
 
-| Input                 | Output           |
-|-----------------------|------------------|
-| `""`                  | `0`              |
-| `"1,2,3"`             | `6`              |
-| `"1\n2,3"`            | `6`              |
-| `"//;\n1;2;3"`        | `6`              |
-| `"2,1001"`            | `2`              |
-| `"//[*][%]\n1*2%3"`   | `6`              |
-| `"1,-2,3,-4"`         | Error: `negative numbers not allowed: -2, -4` |
+    | Input                 | Output           |
+    |-----------------------|------------------|
+    | `""`                  | `0`              |
+    | `"1,2,3"`             | `6`              |
+    | `"1\n2,3"`            | `6`              |
+    | `"//;\n1;2;3"`        | `6`              |
+    | `"2,1001"`            | `2`              |
+    | `"//[*][%]\n1*2%3"`   | `6`              |
+    | `"1,-2,3,-4"`         | Error: `negative numbers not allowed: -2, -4` |
 
 
 ## Project Link : https://github.com/athira-s-asn1/string_calculator.git
