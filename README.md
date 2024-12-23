@@ -37,14 +37,12 @@ The goal is to implement a `StringCalculator` class with the following functiona
 ## Usage
 
 To run the StringCalculator:
-    ```bash
     ruby string_calculator.rb
 
 
 ## Running Tests
 
 To execute the test suite:
-    ```bash
     rspec
 
 ## Example Input and Output
